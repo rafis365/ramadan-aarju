@@ -306,7 +306,7 @@
 
         <!-- Countdown hero -->
         <div class="countdown-hero mb-4" id="countdownHero">
-          <div class="next-event-label small" id="nextEventLabel" style="font-family: 'Amiri', serif;">পরবর্তী সময়সীমা</div>
+          <div class="next-event-label small" id="nextEventLabel" style="font-family: 'Amiri', serif;">পরবর্তী সময়সীমা</div>
           <div class="next-event-timer" id="nextEventTimer">--:--:--</div>
           <div class="next-event-sub small" id="nextEventSub" style="font-family: 'Amiri', serif;">সাহরী শেষ হতে</div>
           <div class="mt-3 d-flex justify-content-center gap-2 flex-wrap">
@@ -335,7 +335,7 @@
         <!-- Footer note -->
         <div class="mt-4 small text-secondary text-center footer-note">
           <i class="bi bi-check-circle-fill me-1" style="color: var(--accent);"></i>
-          ইসলামিক ফাউন্ডেশন, বাংলাদেশ ও জেলা পোর্টাল অনুসারে নির্ভুল সময়সূচি · 
+          ইসলামিক ফাউন্ডেশন, বাংলাদেশ ও জেলা পোর্টাল অনুসারে নির্ভুল সময়সূচি · 
           <span style="font-family: 'Amiri', serif;">رمضان كريم</span>
         </div>
 
@@ -363,7 +363,7 @@
       "khulna": "খুলনা বিভাগ",
       "rajshahi": "রাজশাহী বিভাগ",
       "rangpur": "রংপুর বিভাগ",
-      "mymensingh": "ময়মনসিংহ বিভাগ"
+      "mymensingh": "ময়মনসিংহ বিভাগ"
     };
 
     // Times data (same as before, abbreviated for space)
@@ -412,7 +412,7 @@
       else if (key === 'khulna') name = 'খুলনা';
       else if (key === 'rajshahi') name = 'রাজশাহী';
       else if (key === 'rangpur') name = 'রংপুর';
-      else if (key === 'mymensingh') name = 'ময়মনসিংহ';
+      else if (key === 'mymensingh') name = 'ময়মনসিংহ';
       option.textContent = name;
       divisionSelect.appendChild(option);
     }
@@ -504,7 +504,7 @@
       updateCountdown(); // refresh countdown
     }
 
-    // Countdown logic
+    // Countdown logic (FIXED: Iftar now treated as PM)
     function updateCountdown() {
       let div = divisionSelect.value;
       let times = divisions[div];
@@ -542,9 +542,10 @@
       let [fh, fm] = todayTimes[1].split(':').map(Number);
       fajr.setHours(fh, fm, 0);
 
-      let iftar = new Date(targetDate);
+      // Iftar is in the evening (PM) – add 12 hours to convert to 24h format
       let [ih, im] = todayTimes[2].split(':').map(Number);
-      iftar.setHours(ih, im, 0);
+      let iftar = new Date(targetDate);
+      iftar.setHours(ih + 12, im, 0);
 
       // Next day Sehri (if exists)
       let nextSehri = null;
